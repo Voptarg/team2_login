@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="background-color: #927ed2;"> 
+    <h1>Hello, {{current_user.username}}!!! Begin your Quest...</h1>
+    {% for post in posts %}
+    <div><p>{{ post.author.username }} says: <b> {{post.body}}</b></p></div>
+    {% endfor %}
+</div>
+{% endblock %}
