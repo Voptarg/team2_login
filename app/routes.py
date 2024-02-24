@@ -1,3 +1,6 @@
+# Redirects from page to page
+
+#Imports
 from flask import request, render_template, flash, redirect, url_for
 #from werkzeug.urls import url_parse
 from urllib.parse import urlparse
@@ -6,7 +9,7 @@ from app import app, db
 from app.forms import LoginForm, RegistrationForm
 from app.models import User
 
-
+#Setup
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -14,6 +17,7 @@ def index ():
     user = {'username': 'Welcome to Team 2: Initiative Tracker'}
     return render_template('index.html', title='Home')
 
+#Routes to login and checks for valid username && password
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -31,12 +35,14 @@ def login():
         return redirect(next_page)
 
     return render_template('login.html', title='Sign In', form=form)
-
+    
+#Logs out
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
-
+    
+#Routes to registration page adding in a new user
 @app.route('/register', methods=['GET','POST'])
 def register():
     if current_user.is_authenticated:

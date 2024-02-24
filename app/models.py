@@ -1,10 +1,13 @@
+# Defines database uses
+
+#Imports
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import db, login
 
 
-
+#Defines User (What constitutes a "User")
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -21,10 +24,12 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+#Loads users
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
+#Defines Post
 class Post(db.Model):
      id = db.Column(db.Integer, primary_key=True)
      body = db.Column(db.String(140))
